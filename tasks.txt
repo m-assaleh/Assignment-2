@@ -1,0 +1,46 @@
+Write a well-commented Shell script that prepares a virtual environment on the Google Cloud
+platform using gcloud commands that do:
+
+Check if it covers this all:
+
+1. Create two additional VPC networks “cc-network1” and “cc-network2” with subnet-mode “custom”.
+2. For each created network, create a respective subnet “cc-subnet1” and “cc-subnet2” and assign different IP ranges to them. Furthermore, “cc-subnet1” needs a secondary range (check the --secondary-range parameter).
+3. enable nested virtualization (https://cloud.google.com/compute/docs/instances/enable-nested-virtualization-vm-instances?hl=en)
+4. Create a disk based on the “ubuntu-2204-lts” image family and set the size to 120GB.
+5. Use the disk to create a custom image and include the required license for nested virtualization.
+6. Start 3 gc VMs that allow nested virtualization:
+• Name them “controller”, “compute1”, “compute2”
+• The image should be the previously created custom image that supports nested virtualization.
+• Set the tag “cc” for each gc VM.
+• Choose machine type “n2-standard-2” in europe-west10-c
+• The gc VMs must have 2 NICs (check the --network-interface parameter). The first NIC should be connected to cc-subnet1, the second NIC should be connected to cc-subnet2.
+7. Create a firewall rule that allows all TCP, ICMP and UDP traffic for the IP ranges of cc-subnet1 and cc-subnet2. Restrict it to gc VMs that have the “cc”-tag.
+8. You can read up on all required ports of OpenStack:https://docs.openstack.org/install-guide/firewalls-default-ports.html
+You must open them to be accessible from any external IP address. For simplicity, you can create a firewall rule, that allows all TCP and ICMP traffic from external IPs for cc-network1 (Caution: This is OK for this assignment, in production you need to be careful opening up your environment to the internet.). Restrict it to gc VMs that have the “cc”-tag.
+
+
+
+Verify:
+• These verifications are not required to be part of the submission but help to verify that the environment is ready for OpenStack deployment.
+• Check nested virtualization support. Each gc VM should have VMX enabled. Execute: grep -cw vmx /proc/cpuinfo
+The response indicates the number of CPU cores that are available for nested virtualization. A non-zero return value means that nested virtualization is available. If you get 0, you need to revisit step 3.
+• Each instance should have 2 NICs and 2 internal IP addresses. Check via gc dashboard, gc command line or run ifconfig or ip link show within the gc VMs.
+• ssh to all gc VMs must work:
+ssh -i /path/to/id_rsa <user>@<public_ip>
+
+If it is not working, check you firewall rules (especially step 8).
+
+• Connect via ssh to the gc VMs and try to ping both internal IP addresses of the other 2 gc VMs. If it does not work, check firewall rules (step 7).
+• Connect via ssh to instances and test TCP traffic to internal IP addresses of the other 2 instances: nc -z -v <internal ip adress> 22
+It must be successful. If it does not work, check firewall rules (step 7).
+Outputs:
+l Script spinup-gcp-for-openstack.sh
+l Containing all commands for preparing and starting your gc VMs,
+including comments explaining what the commands do.
+
+Common Pitfalls & General Remarks
+• Make sure IP (v4) forwarding is enabled (cat /proc/sys/net/ipv4/ip_forward)
+• If not, enable it with "sysctl -w net.ipv4.ip_forward=1"
+• Firewall Rules, Firewall Rules, Firewall Rules!
+• Execute commands one after another; validate before proceeding
+• Location of Spark logs depends on your chosen installation path

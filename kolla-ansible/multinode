@@ -1,14 +1,14 @@
 [all:vars]
-ansible_python_interpreter=/usr/bin/python3
-ansible_user=[******REMOTE_ANSIBLE_USER******]
+ansible_python_interpreter=/kolla-env/bin/python3
+ansible_user=[gcp_user]
 ansible_become=True
-ansible_private_key_file=[******PRIVATE_KEY_FILE_FOR_SSH_GCP_MACHINES******]
+ansible_private_key_file=[/home/gcp_user/.ssh/id_rsa]
 
 # These initial groups are the only groups required to be modified. The
 # additional groups are for more control of the environment.
 [control]
 # These hostname must be resolvable from your deployment host
-[******PUBLIC_IP_OF_CONTROLLER_VM******]
+[34.32.25.217]
 
 # The above can also be specified as follows:
 #control[01:03]     ansible_user=kolla
@@ -19,8 +19,8 @@ ansible_private_key_file=[******PRIVATE_KEY_FILE_FOR_SSH_GCP_MACHINES******]
 control
 
 [compute]
-[******PUBLIC_IP_OF_COMPUTE1_VM******]
-[******PUBLIC_IP_OF_COMPUTE2_VM******]
+[34.32.48.235]
+[34.32.81.222]
 
 [monitoring:children]
 control

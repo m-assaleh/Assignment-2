@@ -44,3 +44,21 @@ Common Pitfalls & General Remarks
 • Firewall Rules, Firewall Rules, Firewall Rules!
 • Execute commands one after another; validate before proceeding
 • Location of Spark logs depends on your chosen installation path
+
+
+A2
+• Task 1: Prepare GCP VMs for OpenStack
+• Create a shell script that sets up a virtual machine environment
+• Set up disk, image, VMs, VPC networks, firewall rules
+• VMs must support nested virtualization
+• Task 2: Install OpenStack
+• Using kolla-ansible
+• Task 3: Configure OpenStack
+• Task 4: Execute Data Processing Application
+• Deploy Apache Spark
+• Execute JavaSparkPi job
+Practical Assignment 2
+Common Pitfalls & General Remarks
+• Make sure IP (v4) forwarding is enabled (cat /proc/sys/net/ipv4/ip_forward)
+• If not, enable it with:
+sysctl -w net.ipv4.ip_forward=1

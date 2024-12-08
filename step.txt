@@ -1,9 +1,9 @@
 sudo apt update && sudo apt upgrade -y
 
-sudo adduser kolla
+sudo adduser gcp_user
 sudo usermod -aG sudo kolla
 sudo visudo
-kolla ALL=(ALL) NOPASSWD:ALL
+gcp_user ALL=(ALL) NOPASSWD:ALL
 su - kolla
 
 sudo sysctl -w net.ipv4.ip_forward=1

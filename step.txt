@@ -10,7 +10,8 @@ sudo apt install git python3-dev python3-pip python3-venv libffi-dev gcc libssl-
 
 pip install -U pip
 
-export PATH="$PATH:/home/gcp_user/.local/bin"
+echo 'export PATH="$HOME/.local/bin:$PATH"' >> ~/.bashrc
+
 source ~/.bashrc
 
 pip install -r requirements.txt

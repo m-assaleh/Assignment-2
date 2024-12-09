@@ -8,6 +8,7 @@
       path: /etc/hosts
       regexp: '^10.0.1.*'
       backup: yes
+      firstmatch: yes
       line: '#'
       backrefs: yes
 
@@ -16,5 +17,6 @@
       path: /etc/hosts
       regexp: '^10.0.2.*'
       backup: yes
+      firstmatch: yes
       line: '#'
       backrefs: yes

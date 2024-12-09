@@ -23,8 +23,8 @@ sudo chown $USER:$USER /etc/kolla
 
 pip install git+https://opendev.org/openstack/kolla-ansible@unmaintained/2023.1
 
-cp -r /kolla-env/share/kolla-ansible/etc_examples/kolla/* /etc/kolla
-cp /kolla-env/share/kolla-ansible/ansible/inventory/all-in-one .
+cp -r /home/gcp_user/.local/share/kolla-ansible/etc_examples/kolla/* /etc/kolla
+cp /home/gcp_user/.local/share/kolla-ansible/ansible/inventory/all-in-one .
 
 vi /kolla-env/share/kolla-ansible/requirements.yml
 

@@ -1,18 +1,20 @@
+
 - hosts: control, compute
   become: true
-  tasks:
-    - name: Comment out cc-subnet1 hosts entries (10.0.1.*)
-      lineinfile:
-        path: /etc/hosts
-        regexp: '^(10\.0\.1\..*)'
-        line: '# \1'
-        backrefs: yes
-        backup: yes
 
-    - name: Comment out cc-subnet2 hosts entries (10.0.2.*)
-      lineinfile:
-        path: /etc/hosts
-        regexp: '^(10\.0\.2\..*)'
-        line: '# \1'
-        backrefs: yes
-        backup: yes
+  tasks:
+  - name: Comment out cc-subnet1 hosts entries (10.0.1.*)
+    lineinfile:
+      path: /etc/hosts
+      regexp: '^10.0.1.*'
+      backup: yes
+      line: '#'
+      backrefs: yes
+
+  - name: Comment out cc-subnet2 hosts entries (10.0.2.*)
+    lineinfile:
+      path: /etc/hosts
+      regexp: '^10.0.2.*'
+      backup: yes
+      line: '#'
+      backrefs: yes
